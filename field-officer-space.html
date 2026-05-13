@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Officer's Space - Lend A Hand India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f0e8 0%, #fff8f0 50%, #f5f0e8 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px 50px;
+            box-shadow: 0 4px 20px rgba(107, 68, 35, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-section:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6B4423 0%, #8B6F47 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(107, 68, 35, 0.2);
+        }
+
+        .logo-text h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 18px;
+            color: #6B4423;
+            margin-bottom: 3px;
+        }
+
+        .logo-text p {
+            font-size: 11px;
+            color: #8B6F47;
+            font-weight: 600;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #6B4423;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #6B4423;
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav a:hover {
+            color: #8B6F47;
+        }
+
+        .nav a.active {
+            color: #8B6F47;
+            font-weight: 700;
+        }
+
+        .nav a.active::after {
+            width: 100%;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #6B4423 0%, #8B6F47 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(107, 68, 35, 0.2);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 68, 35, 0.3);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 80px 50px;
+            min-height: calc(100vh - 200px);
+        }
+
+        .page-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 48px;
+            color: #6B4423;
+            text-align: center;
+            margin-bottom: 90px;
+            text-shadow: 0 2px 4px rgba(107, 68, 35, 0.1);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 45px;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(107, 68, 35, 0.12);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 45px rgba(107, 68, 35, 0.2);
+            border-color: #d4c4a8;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #6B4423 0%, #8B6F47 100%);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .card-header h3 {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-body {
+            padding: 35px 30px;
+            text-align: center;
+        }
+
+        .card-description {
+            color: #555;
+            line-height: 1.8;
+            font-size: 15px;
+            margin-bottom: 30px;
+            min-height: 70px;
+        }
+
+        .card-button {
+            background: linear-gradient(135deg, #6B4423 0%, #8B6F47 100%);
+            color: white;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(107, 68, 35, 0.2);
+        }
+
+        .card-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 68, 35, 0.35);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 32px;
+                margin-bottom: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section" onclick="window.location.href='index.html'">
+            <div class="logo-img">🤝</div>
+            <div class="logo-text">
+                <h1>Lend A Hand India</h1>
+                <p>Building A Skilled Tomorrow</p>
+            </div>
+        </div>
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="field-officer-space.html" class="active">Field Officer's Space</a>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Field Officer's Space</h1>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h3>School Registration</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        The form collects school, staff, facility, and safety details for program setup.
+                    </p>
+                    <a href="#" class="card-button" onclick="openForm('school-registration')">Open Form</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Teacher Registration</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        The form collects teacher details, including personal, educational, and teaching information.
+                    </p>
+                    <a href="#" class="card-button" onclick="openForm('teacher-registration')">Open Form</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Classroom Observation</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        This is a checklist for observing a class, focusing on the teacher's methods and how students are learning.
+                    </p>
+                    <a href="#" class="card-button" onclick="openForm('classroom-observation')">Open Form</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if logged in and is field officer
+        if (sessionStorage.getItem('loggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+        
+        if (sessionStorage.getItem('userRole') !== 'field_officer') {
+            alert('Access denied. This page is for field officers only.');
+            window.location.href = 'login.html';
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.clear();
+                window.location.href = 'login.html';
+            }
+        }
+
+        function openForm(formType) {
+            // Replace these URLs with your actual Kobo form URLs
+            const formUrls = {
+                'school-registration': 'YOUR_KOBO_FORM_URL_HERE',
+                'teacher-registration': 'YOUR_KOBO_FORM_URL_HERE',
+                'classroom-observation': 'YOUR_KOBO_FORM_URL_HERE'
+            };
+
+            const url = formUrls[formType];
+            
+            if (url === 'YOUR_KOBO_FORM_URL_HERE') {
+                alert('Please add your Kobo form URL in the JavaScript code.\n\nFind the openForm function and replace "YOUR_KOBO_FORM_URL_HERE" with your actual Kobo form link.');
+                return;
+            }
+
+            // Open form in new window
+            window.open(url, '_blank', 'width=900,height=700');
+        }
+    </script>
+</body>
+</html>
