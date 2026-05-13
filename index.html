@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Lend A Hand India</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-cyan: #9ECAD6;
+            --primary-slate: #748DAE;
+            --primary-rose: #F5CBCB;
+            --primary-blush: #FFEAEA;
+            --text-dark: #3A4F5C;
+            --text-medium: #5A6F7C;
+            --text-light: #7A8F9C;
+        }
+        
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(145deg, var(--primary-blush) 0%, #FFF 30%, var(--primary-blush) 100%);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--primary-blush);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-rose);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-slate);
+        }
+        
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 300;
+            transition: all .3s;
+        }
+        
+        nav.stuck {
+            background: rgba(255, 255, 255, .95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 24px rgba(158, 202, 214, .15);
+        }
+        
+        .nav-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 44px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform .3s;
+        }
+        
+        .nav-logo:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-logo img {
+            height: 55px;
+            width: auto;
+            filter: drop-shadow(0 4px 12px rgba(116, 141, 174, .2));
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+        
+        .nav-right li {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-right a {
+            font-size: 15px;
+            color: var(--text-medium);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all .3s;
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 50px;
+        }
+        
+        .nav-right a::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-slate));
+            transition: width .3s;
+        }
+        
+        .nav-right a:hover,
+        .nav-right a.active {
+            color: var(--primary-slate);
+        }
+        
+        .nav-right a:hover::after,
+        .nav-right a.active::after {
+            width: 60%;
+        }
+        
+        .login-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-slate) 0%, var(--primary-cyan) 100%);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all .3s;
+            box-shadow: 0 4px 16px rgba(116, 141, 174, .25);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(116, 141, 174, .35);
+        }
+        
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 44px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Organic blob decorations */
+        .hero-blob {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(60px);
+        }
+        
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(158, 202, 214, .3) 0%, transparent 70%);
+            top: -150px;
+            right: -100px;
+            animation: float1 20s ease-in-out infinite;
+        }
+        
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(245, 203, 203, .3) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: float2 18s ease-in-out infinite;
+        }
+        
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(116, 141, 174, .2) 0%, transparent 70%);
+            top: 40%;
+            left: 40%;
+            animation: float3 22s ease-in-out infinite;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(40px, 50px) scale(1.15) rotate(180deg); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(-30px, -40px) scale(1.1) rotate(-180deg); }
+        }
+        
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.2); }
+        }
+        
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-left h1 {
+            font-size: clamp(40px, 5vw, 64px);
+            font-weight: 300;
+            line-height: 1.2;
+            letter-spacing: -1.5px;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            animation: slideUp .8s cubic-bezier(.22, 1, .36, 1) both;
+        }
+        
+        .hero-left h1 span {
+            background: linear-gradient(135deg, var(--primary-slate), var(--primary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+        
+        .hero-sub {
+            font-size: 17px;
+            color: var(--text-medium);
+            line-height: 1.8;
+            max-width: 520px;
+            margin-bottom: 36px;
+            font-weight: 300;
+            animation: slideUp .8s .15s cubic-bezier(.22, 1, .36, 1) both;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* HERO RIGHT */
+        .hero-right {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideUp .8s .2s cubic-bezier(.22, 1, .36, 1) both;
+        }
+        
+        .hero-img-frame {
+            width: 100%;
+            position: relative;
+        }
+        
+        .hero-img-frame img {
+            width: 100%;
+            border-radius: 32px;
+            box-shadow: 0 32px 80px rgba(116, 141, 174, .3);
+            display: block;
+            border: 6px solid white;
+        }
+        
+        .hero-img-frame::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            right: 30px;
+            bottom: 30px;
+            background: linear-gradient(135deg, rgba(158, 202, 214, .2), rgba(245, 203, 203, .2));
+            border-radius: 32px;
+            z-index: -1;
+        }
+        
+        /* DIVIDER */
+        .divider {
+            height: 4px;
+            background: linear-gradient(to right, 
+                transparent,
+                var(--primary-cyan) 15%,
+                var(--primary-slate) 35%,
+                var(--primary-rose) 50%,
+                var(--primary-slate) 65%,
+                var(--primary-cyan) 85%,
+                transparent);
+            margin: 60px auto;
+            max-width: 600px;
+            border-radius: 4px;
+            opacity: .4;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: inherit;
+            filter: blur(6px);
+            opacity: .6;
+        }
+        
+        /* CONTENT SECTION */
+        section {
+            padding: 100px 44px;
+            position: relative;
+        }
+        
+        .section-wrap {
+            max-width: 1160px;
+            margin: 0 auto;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 40px;
+            padding: 80px;
+            box-shadow: 0 24px 60px rgba(116, 141, 174, .15);
+            border: 1px solid rgba(158, 202, 214, .2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 234, 234, .5) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            pointer-events: none;
+        }
+        
+        .content-section::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(158, 202, 214, .3) 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            pointer-events: none;
+        }
+        
+        .content-inner {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-slate);
+            margin-bottom: 16px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, rgba(158, 202, 214, .15), rgba(116, 141, 174, .15));
+            border-radius: 50px;
+        }
+        
+        .section-heading {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -.5px;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+        }
+        
+        .section-heading span {
+            background: linear-gradient(135deg, var(--primary-slate), var(--primary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-para {
+            font-size: 17px;
+            color: var(--text-medium);
+            line-height: 1.9;
+            max-width: 800px;
+        }
+        
+        /* MOBILE */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: var(--primary-slate);
+            border-radius: 3px;
+            transition: all .3s;
+        }
+        
+        @media (max-width: 968px) {
+            .nav-inner {
+                padding: 0 28px;
+                height: 70px;
+            }
+            
+            .nav-logo img {
+                height: 45px;
+            }
+            
+            .nav-right {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hero {
+                padding: 100px 28px 60px;
+            }
+            
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .hero-left {
+                text-align: center;
+            }
+            
+            .hero-left h1 {
+                font-size: 38px;
+            }
+            
+            .hero-sub {
+                margin: 0 auto 36px;
+            }
+            
+            .content-section {
+                padding: 50px 40px;
+                border-radius: 30px;
+            }
+            
+            section {
+                padding: 70px 28px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .hero-left h1 {
+                font-size: 32px;
+            }
+            
+            .content-section {
+                padding: 40px 28px;
+                border-radius: 24px;
+            }
+            
+            .section-heading {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="logo.png" alt="Lend A Hand India">
+            </a>
+            <ul class="nav-right">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="login.html" class="login-btn">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-blob blob-1"></div>
+        <div class="hero-blob blob-2"></div>
+        <div class="hero-blob blob-3"></div>
+        
+        <div class="hero-inner">
+            <div class="hero-left">
+                <h1>Fostering <span>School-Based</span> Vocational Education in Maharashtra</h1>
+                <p class="hero-sub">In alignment with NEP 2020, empowering students through hands-on learning, practical skills, and real-world exposure for holistic development and career readiness.</p>
+            </div>
+            
+            <div class="hero-right">
+                <div class="hero-img-frame">
+                    <img src="NEP 6 Modules.png" alt="Vocational Education Modules">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <section>
+        <div class="section-wrap">
+            <div class="content-section">
+                <div class="content-inner">
+                    <span class="section-tag">Our Approach</span>
+                    <h2 class="section-heading"><span>NEP - NCF</span> Aligned Vocational Education Implementation</h2>
+                    <p class="section-para">
+                        In line with the National Education Policy 2020, National Curriculum Framework 2023, and the State Curriculum Framework 2024, our school implements vocational education to support holistic development. The program emphasizes hands-on learning, practical skills, and real-world exposure, enabling students to link academic learning with career readiness and future opportunities.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Sticky nav
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('stuck');
+            } else {
+                nav.classList.remove('stuck');
+            }
+        });
+    </script>
+</body>
+</html>
