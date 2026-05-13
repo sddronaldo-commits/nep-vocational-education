@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher's Space - Lend A Hand India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f0e8 0%, #fff8f0 50%, #f5f0e8 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px 50px;
+            box-shadow: 0 4px 20px rgba(107, 68, 35, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-section:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6B4423 0%, #8B6F47 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(107, 68, 35, 0.2);
+        }
+
+        .logo-text h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 18px;
+            color: #6B4423;
+            margin-bottom: 3px;
+        }
+
+        .logo-text p {
+            font-size: 11px;
+            color: #8B6F47;
+            font-weight: 600;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #6B4423;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #6B4423;
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav a:hover {
+            color: #8B6F47;
+        }
+
+        .nav a.active {
+            color: #8B6F47;
+            font-weight: 700;
+        }
+
+        .nav a.active::after {
+            width: 100%;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #6B4423 0%, #8B6F47 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(107, 68, 35, 0.2);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 68, 35, 0.3);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 80px 50px;
+        }
+
+        .page-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 48px;
+            color: #6B4423;
+            text-align: center;
+            margin-bottom: 70px;
+            text-shadow: 0 2px 4px rgba(107, 68, 35, 0.1);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            margin-bottom: 80px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #e8dcc8 0%, #f5f0e8 100%);
+            padding: 25px 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(107, 68, 35, 0.1);
+        }
+
+        .section-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 24px;
+            color: #6B4423;
+            text-decoration: underline;
+            text-underline-offset: 8px;
+            text-decoration-thickness: 2px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 35px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(107, 68, 35, 0.12);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(107, 68, 35, 0.2);
+            border-color: #d4c4a8;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #6B4423 0%, #8B6F47 100%);
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .card-header h3 {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-body {
+            padding: 30px 25px;
+            text-align: center;
+        }
+
+        .card-description {
+            color: #555;
+            line-height: 1.7;
+            font-size: 15px;
+            margin-bottom: 25px;
+            min-height: 80px;
+        }
+
+        .card-button {
+            background: linear-gradient(135deg, #6B4423 0%, #8B6F47 100%);
+            color: white;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(107, 68, 35, 0.2);
+        }
+
+        .card-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 68, 35, 0.35);
+        }
+
+        .outlined-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fefdfb 100%);
+            border: 3px solid #6B4423;
+        }
+
+        .outlined-card .card-header {
+            background: transparent;
+            border-bottom: 3px solid #6B4423;
+        }
+
+        .outlined-card .card-header::before {
+            display: none;
+        }
+
+        .outlined-card .card-header h3 {
+            color: #6B4423;
+        }
+
+        .single-card {
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section" onclick="window.location.href='index.html'">
+            <div class="logo-img">🤝</div>
+            <div class="logo-text">
+                <h1>Lend A Hand India</h1>
+                <p>Building A Skilled Tomorrow</p>
+            </div>
+        </div>
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="teacher-space.html" class="active">Teacher's Space</a>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Teacher's Space</h1>
+
+        <!-- Multi Sector Skill Subject Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Multi Sector Skill Subject (Grade 9th)</h2>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Chapter Reporting</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Chapter Reporting for Class 9<br>
+                            The form records chapter-wise teaching progress for each class, subject.
+                        </p>
+                        <a href="#" class="card-button" onclick="openForm('chapter-reporting-9')">Open Form</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Student Registration</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Register Class 9 students by entering their personal details and school details.
+                        </p>
+                        <a href="#" class="card-button" onclick="openForm('student-registration-9')">Open Form</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Guest Lecture / Field Visit</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Captures details of student visits to industries, including location, guest details.
+                        </p>
+                        <a href="#" class="card-button" onclick="openForm('guest-lecture-9')">Open Form</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kaushal Bodh Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Kaushal Bodh (Grade 6th to Grade 8th)</h2>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="card outlined-card">
+                    <div class="card-header">
+                        <h3>Kaushal Bodh Reporting</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Collects basic school information and records the grades in which Kaushal Bodh is being implemented
+                        </p>
+                        <a href="#" class="card-button" onclick="openForm('kaushal-bodh-reporting')">Open Form</a>
+                    </div>
+                </div>
+
+                <div class="card outlined-card">
+                    <div class="card-header">
+                        <h3>Kaushal Bodh Student Registration</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Register Class 6-8 students by entering their personal details and school details.
+                        </p>
+                        <a href="#" class="card-button" onclick="openForm('kaushal-bodh-student')">Open Form</a>
+                    </div>
+                </div>
+
+                <div class="card outlined-card">
+                    <div class="card-header">
+                        <h3>Kaushal Bodh Guest/Field</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Captures details of student Class 6-8 visits to industries, including location, guest details.
+                        </p>
+                        <a href="#" class="card-button" onclick="openForm('kaushal-bodh-guest')">Open Form</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Inventory Section -->
+        <div class="section">
+            <div class="single-card card outlined-card">
+                <div class="card-header">
+                    <h3>Tools Inventory</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        Collects basic information about available tools and records their quantity, condition, and usage in the school
+                    </p>
+                    <a href="#" class="card-button" onclick="openForm('tools-inventory')">Open Form</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if logged in and is teacher
+        if (sessionStorage.getItem('loggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+        
+        if (sessionStorage.getItem('userRole') !== 'teacher') {
+            alert('Access denied. This page is for teachers only.');
+            window.location.href = 'login.html';
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.clear();
+                window.location.href = 'login.html';
+            }
+        }
+
+        function openForm(formType) {
+            // Replace these URLs with your actual Kobo form URLs
+            const formUrls = {
+                'chapter-reporting-9': 'YOUR_KOBO_FORM_URL_HERE',
+                'student-registration-9': 'YOUR_KOBO_FORM_URL_HERE',
+                'guest-lecture-9': 'YOUR_KOBO_FORM_URL_HERE',
+                'kaushal-bodh-reporting': 'YOUR_KOBO_FORM_URL_HERE',
+                'kaushal-bodh-student': 'YOUR_KOBO_FORM_URL_HERE',
+                'kaushal-bodh-guest': 'YOUR_KOBO_FORM_URL_HERE',
+                'tools-inventory': 'YOUR_KOBO_FORM_URL_HERE'
+            };
+
+            const url = formUrls[formType];
+            
+            if (url === 'YOUR_KOBO_FORM_URL_HERE') {
+                alert('Please add your Kobo form URL in the JavaScript code.\n\nFind the openForm function and replace "YOUR_KOBO_FORM_URL_HERE" with your actual Kobo form link.');
+                return;
+            }
+
+            // Open form in new window
+            window.open(url, '_blank', 'width=900,height=700');
+        }
+    </script>
+</body>
+</html>
