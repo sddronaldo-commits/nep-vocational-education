@@ -154,6 +154,22 @@
             display: none;
             border-left: 3px solid #C33;
         }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: var(--text-secondary);
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-link a:hover {
+            color: var(--primary);
+        }
         .error-message.show {
             display: block;
             animation: shake 0.3s ease;
@@ -188,7 +204,14 @@
             </div>
             <button type="submit" class="btn-login">Login to Portal</button>
         </form>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="color: var(--text-secondary); font-size: 13px; text-decoration: none; transition: color 0.3s;">
+                ← Back to Home
+            </a>
+        </div>
     </div>
+    
     <script>
         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbw1OrIX0j4E__anedReFAbjVrABpSDfKSSYj7xAgcYGaJVL-AdEpbderriLODCNgdw8Ng/exec';
         
