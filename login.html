@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Lend A Hand India</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-cyan: #9ECAD6;
+            --primary-slate: #748DAE;
+            --primary-rose: #F5CBCB;
+            --primary-blush: #FFEAEA;
+            --text-dark: #3A4F5C;
+            --text-medium: #5A6F7C;
+        }
+        
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(145deg, var(--primary-blush) 0%, #FFF 30%, var(--primary-cyan) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Organic blob decorations */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(80px);
+        }
+        
+        .blob-1 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(245, 203, 203, .4) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+            animation: float1 18s ease-in-out infinite;
+        }
+        
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(116, 141, 174, .3) 0%, transparent 70%);
+            bottom: -120px;
+            left: -120px;
+            animation: float2 15s ease-in-out infinite;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, 40px) scale(1.1); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, -30px) scale(1.05); }
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, .98);
+            border-radius: 32px;
+            box-shadow: 0 32px 80px rgba(116, 141, 174, .25);
+            max-width: 480px;
+            width: 100%;
+            padding: 60px 50px;
+            animation: slideUp 0.6s ease;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(158, 202, 214, .3);
+            overflow: hidden;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 234, 234, .3) 0%, transparent 70%);
+            bottom: -100px;
+            right: -100px;
+            pointer-events: none;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            width: 110px;
+            height: 110px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(158, 202, 214, .1) 0%, rgba(245, 203, 203, .1) 100%);
+            padding: 15px;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+        
+        h1 {
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: var(--text-medium);
+            margin-bottom: 40px;
+            font-size: 15px;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 26px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid rgba(158, 202, 214, .4);
+            border-radius: 16px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            background: rgba(255, 255, 255, .9);
+            color: var(--text-dark);
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-slate);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(116, 141, 174, .1);
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-slate) 0%, var(--primary-cyan) 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 8px 24px rgba(116, 141, 174, .25);
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(116, 141, 174, .35);
+        }
+        
+        .btn-login:active {
+            transform: translateY(-1px);
+        }
+        
+        .error-message {
+            background: linear-gradient(135deg, #FFE4E4 0%, #FFD0D0 100%);
+            color: #C33;
+            padding: 14px 18px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: none;
+            border-left: 4px solid #C33;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .error-message.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .back-home {
+            text-align: center;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .back-home a {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .back-home a:hover {
+            color: var(--primary-slate);
+        }
+        
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 50px 35px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .logo {
+                width: 95px;
+                height: 95px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <div class="login-container">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+        </div>
+        
+        <h1>Welcome Back</h1>
+        <p class="subtitle">Login to access your dashboard</p>
+        
+        <div id="errorMessage" class="error-message"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+            </div>
+            
+            <button type="submit" class="btn-login">Login →</button>
+        </form>
+        
+        <div class="back-home">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        async function loadUsersFromSheets() {
+            try {
+                const sheetId = '1tRwTw-r7jzYwS8h1BuCGBT7E8XOdq2BYm9vZ6GXQ4WU';
+                const range = 'credentials!A2:D';
+                const apiKey = 'AIzaSyC4mOlw1RmOdXm3dJlT2n0qx9hKz5PkYrQ';
+                
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.values && data.values.length > 0) {
+                    const loadedUsers = {};
+                    data.values.forEach(row => {
+                        if (row[0] && row[1] && row[2] && row[3]) {
+                            loadedUsers[row[0]] = {
+                                password: row[1],
+                                role: row[2],
+                                name: row[3]
+                            };
+                        }
+                    });
+                    users = loadedUsers;
+                    return true;
+                }
+                return false;
+            } catch (error) {
+                console.error('Error loading from Google Sheets:', error);
+                return false;
+            }
+        }
+
+        let users = {};
+        
+        const fallbackUsers = {
+            teacher1: { password: 'teacher123', role: 'teacher', name: 'Teacher 1' },
+            teacher2: { password: 'teacher123', role: 'teacher', name: 'Teacher 2' },
+            teacher3: { password: 'teacher123', role: 'teacher', name: 'Teacher 3' },
+            teacher4: { password: 'teacher123', role: 'teacher', name: 'Teacher 4' },
+            teacher5: { password: 'teacher123', role: 'teacher', name: 'Teacher 5' },
+            teacher6: { password: 'teacher123', role: 'teacher', name: 'Teacher 6' },
+            teacher7: { password: 'teacher123', role: 'teacher', name: 'Teacher 7' },
+            teacher8: { password: 'teacher123', role: 'teacher', name: 'Teacher 8' },
+            teacher9: { password: 'teacher123', role: 'teacher', name: 'Teacher 9' },
+            teacher10: { password: 'teacher123', role: 'teacher', name: 'Teacher 10' },
+            teacher11: { password: 'teacher123', role: 'teacher', name: 'Teacher 11' },
+            teacher12: { password: 'teacher123', role: 'teacher', name: 'Teacher 12' },
+            teacher13: { password: 'teacher123', role: 'teacher', name: 'Teacher 13' },
+            teacher14: { password: 'teacher123', role: 'teacher', name: 'Teacher 14' },
+            teacher15: { password: 'teacher123', role: 'teacher', name: 'Teacher 15' },
+            teacher16: { password: 'teacher123', role: 'teacher', name: 'Teacher 16' },
+            teacher17: { password: 'teacher123', role: 'teacher', name: 'Teacher 17' },
+            teacher18: { password: 'teacher123', role: 'teacher', name: 'Teacher 18' },
+            teacher19: { password: 'teacher123', role: 'teacher', name: 'Teacher 19' },
+            teacher20: { password: 'teacher123', role: 'teacher', name: 'Teacher 20' },
+            teacher21: { password: 'teacher123', role: 'teacher', name: 'Teacher 21' },
+            teacher22: { password: 'teacher123', role: 'teacher', name: 'Teacher 22' },
+            teacher23: { password: 'teacher123', role: 'teacher', name: 'Teacher 23' },
+            teacher24: { password: 'teacher123', role: 'teacher', name: 'Teacher 24' },
+            teacher25: { password: 'teacher123', role: 'teacher', name: 'Teacher 25' },
+            teacher26: { password: 'teacher123', role: 'teacher', name: 'Teacher 26' },
+            teacher27: { password: 'teacher123', role: 'teacher', name: 'Teacher 27' },
+            teacher28: { password: 'teacher123', role: 'teacher', name: 'Teacher 28' },
+            teacher29: { password: 'teacher123', role: 'teacher', name: 'Teacher 29' },
+            teacher30: { password: 'teacher123', role: 'teacher', name: 'Teacher 30' },
+            teacher31: { password: 'teacher123', role: 'teacher', name: 'Teacher 31' },
+            teacher32: { password: 'teacher123', role: 'teacher', name: 'Teacher 32' },
+            teacher33: { password: 'teacher123', role: 'teacher', name: 'Teacher 33' },
+            teacher34: { password: 'teacher123', role: 'teacher', name: 'Teacher 34' },
+            teacher35: { password: 'teacher123', role: 'teacher', name: 'Teacher 35' },
+            teacher36: { password: 'teacher123', role: 'teacher', name: 'Teacher 36' },
+            teacher37: { password: 'teacher123', role: 'teacher', name: 'Teacher 37' },
+            teacher38: { password: 'teacher123', role: 'teacher', name: 'Teacher 38' },
+            teacher39: { password: 'teacher123', role: 'teacher', name: 'Teacher 39' },
+            teacher40: { password: 'teacher123', role: 'teacher', name: 'Teacher 40' },
+            teacher41: { password: 'teacher123', role: 'teacher', name: 'Teacher 41' },
+            teacher42: { password: 'teacher123', role: 'teacher', name: 'Teacher 42' },
+            teacher43: { password: 'teacher123', role: 'teacher', name: 'Teacher 43' },
+            teacher44: { password: 'teacher123', role: 'teacher', name: 'Teacher 44' },
+            teacher45: { password: 'teacher123', role: 'teacher', name: 'Teacher 45' },
+            teacher46: { password: 'teacher123', role: 'teacher', name: 'Teacher 46' },
+            teacher47: { password: 'teacher123', role: 'teacher', name: 'Teacher 47' },
+            teacher48: { password: 'teacher123', role: 'teacher', name: 'Teacher 48' },
+            teacher49: { password: 'teacher123', role: 'teacher', name: 'Teacher 49' },
+            teacher50: { password: 'teacher123', role: 'teacher', name: 'Teacher 50' },
+            officer1: { password: 'officer123', role: 'field_officer', name: 'Field Officer 1' },
+            officer2: { password: 'officer123', role: 'field_officer', name: 'Field Officer 2' },
+            officer3: { password: 'officer123', role: 'field_officer', name: 'Field Officer 3' },
+            officer4: { password: 'officer123', role: 'field_officer', name: 'Field Officer 4' },
+            officer5: { password: 'officer123', role: 'field_officer', name: 'Field Officer 5' },
+            officer6: { password: 'officer123', role: 'field_officer', name: 'Field Officer 6' },
+            officer7: { password: 'officer123', role: 'field_officer', name: 'Field Officer 7' },
+            officer8: { password: 'officer123', role: 'field_officer', name: 'Field Officer 8' },
+            officer9: { password: 'officer123', role: 'field_officer', name: 'Field Officer 9' },
+            officer10: { password: 'officer123', role: 'field_officer', name: 'Field Officer 10' },
+            officer11: { password: 'officer123', role: 'field_officer', name: 'Field Officer 11' },
+            officer12: { password: 'officer123', role: 'field_officer', name: 'Field Officer 12' },
+            officer13: { password: 'officer123', role: 'field_officer', name: 'Field Officer 13' },
+            officer14: { password: 'officer123', role: 'field_officer', name: 'Field Officer 14' },
+            officer15: { password: 'officer123', role: 'field_officer', name: 'Field Officer 15' },
+            officer16: { password: 'officer123', role: 'field_officer', name: 'Field Officer 16' },
+            officer17: { password: 'officer123', role: 'field_officer', name: 'Field Officer 17' },
+            officer18: { password: 'officer123', role: 'field_officer', name: 'Field Officer 18' },
+            officer19: { password: 'officer123', role: 'field_officer', name: 'Field Officer 19' },
+            officer20: { password: 'officer123', role: 'field_officer', name: 'Field Officer 20' },
+            officer21: { password: 'officer123', role: 'field_officer', name: 'Field Officer 21' },
+            officer22: { password: 'officer123', role: 'field_officer', name: 'Field Officer 22' },
+            officer23: { password: 'officer123', role: 'field_officer', name: 'Field Officer 23' },
+            officer24: { password: 'officer123', role: 'field_officer', name: 'Field Officer 24' },
+            officer25: { password: 'officer123', role: 'field_officer', name: 'Field Officer 25' },
+            officer26: { password: 'officer123', role: 'field_officer', name: 'Field Officer 26' },
+            officer27: { password: 'officer123', role: 'field_officer', name: 'Field Officer 27' },
+            officer28: { password: 'officer123', role: 'field_officer', name: 'Field Officer 28' },
+            officer29: { password: 'officer123', role: 'field_officer', name: 'Field Officer 29' },
+            officer30: { password: 'officer123', role: 'field_officer', name: 'Field Officer 30' },
+            officer31: { password: 'officer123', role: 'field_officer', name: 'Field Officer 31' },
+            officer32: { password: 'officer123', role: 'field_officer', name: 'Field Officer 32' },
+            officer33: { password: 'officer123', role: 'field_officer', name: 'Field Officer 33' },
+            officer34: { password: 'officer123', role: 'field_officer', name: 'Field Officer 34' },
+            officer35: { password: 'officer123', role: 'field_officer', name: 'Field Officer 35' },
+            officer36: { password: 'officer123', role: 'field_officer', name: 'Field Officer 36' },
+            officer37: { password: 'officer123', role: 'field_officer', name: 'Field Officer 37' },
+            officer38: { password: 'officer123', role: 'field_officer', name: 'Field Officer 38' },
+            officer39: { password: 'officer123', role: 'field_officer', name: 'Field Officer 39' },
+            officer40: { password: 'officer123', role: 'field_officer', name: 'Field Officer 40' },
+            officer41: { password: 'officer123', role: 'field_officer', name: 'Field Officer 41' },
+            officer42: { password: 'officer123', role: 'field_officer', name: 'Field Officer 42' },
+            officer43: { password: 'officer123', role: 'field_officer', name: 'Field Officer 43' },
+            officer44: { password: 'officer123', role: 'field_officer', name: 'Field Officer 44' },
+            officer45: { password: 'officer123', role: 'field_officer', name: 'Field Officer 45' },
+            officer46: { password: 'officer123', role: 'field_officer', name: 'Field Officer 46' },
+            officer47: { password: 'officer123', role: 'field_officer', name: 'Field Officer 47' },
+            officer48: { password: 'officer123', role: 'field_officer', name: 'Field Officer 48' },
+            officer49: { password: 'officer123', role: 'field_officer', name: 'Field Officer 49' },
+            officer50: { password: 'officer123', role: 'field_officer', name: 'Field Officer 50' }
+        };
+        
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        async function initialize() {
+            const loaded = await loadUsersFromSheets();
+            if (!loaded) {
+                users = fallbackUsers;
+                console.log('Using fallback user database');
+            }
+        }
+        
+        initialize();
+        
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (users[username]) {
+                const user = users[username];
+                
+                if (user.password === password) {
+                    sessionStorage.setItem('loggedIn', 'true');
+                    sessionStorage.setItem('username', username);
+                    sessionStorage.setItem('userRole', user.role);
+                    sessionStorage.setItem('userName', user.name);
+                    
+                    if (user.role === 'teacher') {
+                        window.location.href = 'teacher-space.html';
+                    } else {
+                        window.location.href = 'field-officer-space.html';
+                    }
+                } else {
+                    showError('Invalid password. Please try again.');
+                }
+            } else {
+                showError('Username not found. Please check your username and try again.');
+            }
+        });
+        
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+            setTimeout(() => {
+                errorMessage.classList.remove('show');
+            }, 5000);
+        }
+        
+        if (sessionStorage.getItem('loggedIn') === 'true') {
+            const role = sessionStorage.getItem('userRole');
+            if (role === 'teacher') {
+                window.location.href = 'teacher-space.html';
+            } else {
+                window.location.href = 'field-officer-space.html';
+            }
+        }
+    </script>
+</body>
+</html>
