@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Officer's Space - Lend A Hand India</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-cyan: #9ECAD6;
+            --primary-slate: #748DAE;
+            --primary-rose: #F5CBCB;
+            --primary-blush: #FFEAEA;
+            --text-dark: #3A4F5C;
+            --text-medium: #5A6F7C;
+        }
+        
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(145deg, var(--primary-blush) 0%, #FFF 30%, var(--primary-blush) 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--primary-blush);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-rose);
+            border-radius: 4px;
+        }
+        
+        /* Organic blob decorations */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(80px);
+        }
+        
+        .blob-1 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(158, 202, 214, .27) 0%, transparent 70%);
+            top: 100px;
+            right: -120px;
+            animation: float1 22s ease-in-out infinite;
+        }
+        
+        .blob-2 {
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(245, 203, 203, .22) 0%, transparent 70%);
+            bottom: 80px;
+            left: -100px;
+            animation: float2 18s ease-in-out infinite;
+        }
+        
+        .blob-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(116, 141, 174, .18) 0%, transparent 70%);
+            top: 50%;
+            left: 15%;
+            animation: float3 20s ease-in-out infinite;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(40px, 40px) scale(1.12) rotate(5deg); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(-30px, -30px) scale(1.08) rotate(-5deg); }
+        }
+        
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(25px, -25px) scale(1.1); }
+        }
+        
+        /* NAV */
+        nav {
+            background: rgba(255, 255, 255, .95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 24px rgba(158, 202, 214, .15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 44px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform .3s;
+        }
+        
+        .nav-logo:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-logo img {
+            height: 45px;
+            width: auto;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        
+        .nav-right a {
+            font-size: 15px;
+            color: var(--text-medium);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all .3s;
+            position: relative;
+            padding: 8px 16px;
+        }
+        
+        .nav-right a::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-slate));
+            transition: width .3s;
+        }
+        
+        .nav-right a:hover,
+        .nav-right a.active {
+            color: var(--primary-slate);
+        }
+        
+        .nav-right a:hover::after,
+        .nav-right a.active::after {
+            width: 60%;
+        }
+        
+        .logout-btn {
+            background: linear-gradient(135deg, var(--primary-slate) 0%, var(--primary-cyan) 100%);
+            color: #fff;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all .3s;
+            box-shadow: 0 4px 16px rgba(116, 141, 174, .25);
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(116, 141, 174, .35);
+        }
+        
+        /* CONTAINER */
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 60px 44px;
+            position: relative;
+            z-index: 1;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .page-title {
+            font-size: clamp(36px, 5vw, 48px);
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: 600;
+            animation: slideUp .7s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* CARDS */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: slideUp .7s .2s ease both;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, .98);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(116, 141, 174, .22);
+            transition: all .4s cubic-bezier(.4, 0, .2, 1);
+            border: 1px solid rgba(158, 202, 214, .35);
+            position: relative;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 234, 234, .2) 0%, transparent 70%);
+            bottom: -60px;
+            right: -60px;
+            pointer-events: none;
+            transition: all .4s;
+        }
+        
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 24px 56px rgba(116, 141, 174, .32);
+            border-color: var(--primary-cyan);
+        }
+        
+        .card:hover::before {
+            background: radial-gradient(circle, rgba(158, 202, 214, .25) 0%, transparent 70%);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-slate) 0%, var(--primary-cyan) 100%);
+            padding: 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-header::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, .15) 0%, transparent 70%);
+            top: -60px;
+            right: -60px;
+            animation: rotate 25s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .card-header h3 {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-body {
+            padding: 36px 32px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-description {
+            color: var(--text-medium);
+            line-height: 1.8;
+            font-size: 15px;
+            margin-bottom: 32px;
+            min-height: 70px;
+        }
+        
+        .card-button {
+            background: linear-gradient(135deg, var(--primary-slate) 0%, var(--primary-cyan) 100%);
+            color: white;
+            padding: 14px 38px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .3s;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 6px 20px rgba(116, 141, 174, .3);
+        }
+        
+        .card-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(116, 141, 174, .4);
+        }
+        
+        /* MOBILE */
+        @media (max-width: 968px) {
+            .nav-inner {
+                padding: 0 28px;
+            }
+            
+            .nav-right {
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 50px 28px;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            
+            .page-title {
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .nav-right {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            .page-title {
+                font-size: 30px;
+                margin-bottom: 40px;
+            }
+            
+            .card-body {
+                padding: 30px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="logo.png" alt="Lend A Hand India">
+            </a>
+            <div class="nav-right">
+                <a href="index.html">Home</a>
+                <a href="field-officer-space.html" class="active">Field Officer's Space</a>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">Field Officer's Space</h1>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h3>School Registration</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        The form collects school, staff, facility, and safety details for program setup.
+                    </p>
+                    <a href="#" class="card-button" onclick="openForm('school-registration')">Open Form →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Teacher Registration</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        The form collects teacher details, including personal, educational, and teaching information.
+                    </p>
+                    <a href="#" class="card-button" onclick="openForm('teacher-registration')">Open Form →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Classroom Observation</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        This is a checklist for observing a class, focusing on the teacher's methods and how students are learning.
+                    </p>
+                    <a href="#" class="card-button" onclick="openForm('classroom-observation')">Open Form →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if logged in and is field officer
+        if (sessionStorage.getItem('loggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+        
+        if (sessionStorage.getItem('userRole') !== 'field_officer') {
+            alert('Access denied. This page is for field officers only.');
+            window.location.href = 'login.html';
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.clear();
+                window.location.href = 'login.html';
+            }
+        }
+
+        function openForm(formType) {
+            // Replace these URLs with your actual Kobo form URLs
+            const formUrls = {
+                'school-registration': 'YOUR_KOBO_FORM_URL_HERE',
+                'teacher-registration': 'YOUR_KOBO_FORM_URL_HERE',
+                'classroom-observation': 'YOUR_KOBO_FORM_URL_HERE'
+            };
+
+            const url = formUrls[formType];
+            
+            if (url === 'YOUR_KOBO_FORM_URL_HERE') {
+                alert('Please add your Kobo form URL in the JavaScript code.\n\nFind the openForm function and replace "YOUR_KOBO_FORM_URL_HERE" with your actual Kobo form link.');
+                return;
+            }
+
+            // Open form in new window
+            window.open(url, '_blank', 'width=900,height=700');
+        }
+    </script>
+</body>
+</html>
